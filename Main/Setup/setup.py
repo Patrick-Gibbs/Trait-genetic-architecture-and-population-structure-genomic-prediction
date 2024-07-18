@@ -13,7 +13,7 @@ a phenotypes directory.
 # continuely being added
 path_to_data = './data'
 path_to_database = f"{path_to_data}/arapheno_database"
-os.system.mkdir(path_to_data)
+os.system(f"{path_to_data}")
 
 def get_phenotypes(): 
     # to redownload the database uncomment the following lines
@@ -91,13 +91,13 @@ def get_phenotypes():
 def make_temp_dirs():
     # make the following dirs:
     dirs = ['ara_filtered_genome_indexs',
-        'arapheno_database' , 
+        'arapheno_database', 
         'bimbam', 
-        'ld_filtered_genomes_temp_files'
+        'ld_filtered_genomes_temp_files',
         'ara_gwas_pheno', 
         'arapheno_downloaded_phenotypes',
         'functional_data', 
-        'trait_accessions'
+        'trait_accessions',
         'ara_herbavore_resistance_phenotypes', 
         'arapheno_downloaded_phenotypes_cleaned', 
         'ld_filtered_genomes'
@@ -109,11 +109,12 @@ def get_genotypes():
     """
     The next section downloads the bim/bam files
     """
-    os.system(f"wget https://figshare.com/ndownloader/files/20135279 -P {path_to_data}/bimbam/k2029.bed")
-    os.system(f"wget https://figshare.com/ndownloader/files/20135282 -P {path_to_data}/bimbam/k2029.bim")
-    os.system(f"wget https://figshare.com/ndownloader/files/20135285 -P {path_to_data}/bimbam/k2029.fam")
-    os.system(f"wget https://figshare.com/ndownloader/files/20135384 -P {path_to_data}/bimbam/k2029.vcf.gz")
+    os.system(f"wget https://figshare.com/ndownloader/files/20135279 -O {path_to_data}/bimbam/k2029.bed")
+    os.system(f"wget https://figshare.com/ndownloader/files/20135282 -O {path_to_data}/bimbam/k2029.bim ")
+    os.system(f"wget https://figshare.com/ndownloader/files/20135285 -O {path_to_data}/bimbam/k2029.fam ")
+    os.system(f"wget https://figshare.com/ndownloader/files/20135384 -O {path_to_data}/bimbam/k2029.vcf.gz")
 
+    os.systm(f"plink --bfile {path_to_data}/bimbam/k2029 --recode --out {path_to_data}/bimbam/k2029")
 # get phenotypes is commented out becouse the resultant data is already in the git
 # get_phenotypes()
 
