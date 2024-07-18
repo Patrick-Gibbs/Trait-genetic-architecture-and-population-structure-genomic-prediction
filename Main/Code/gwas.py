@@ -7,10 +7,8 @@ PATH_TO_VCF = getAraData.get_vcf_path()
 GENE_FILE =  getAraData.go_terms_path()
 SAVE_DIR = "Main/results/gwas/"
 
-traits = list(pd.read_csv('Main/results/detailed_scores.csv')['trait'])
-traits += [
-    'study_126_Trichome_stem_length'
-]
+traits = list(pd.read_csv('Main/results/traits_used.csv')['name'])
+
 
 for trait in traits:
     getAraData.save_phenotype_file_for_GWAS(trait)

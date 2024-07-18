@@ -11,7 +11,7 @@ INDIVIDUAL_RESULTS = 'Main/results/all_traits_snps/individual'
 RESULTS = "Main/results/all_traits_snps/"
 ara_data = GetAraData(path_to_data='./data', maf=0.05, window_kb=200, r2=0.6)
 
-traits = sorted(ara_data.get_trait_names())
+traits = list(pd.read_csv('Main/results/traits_used.csv')['name'])
 
 cv = RepeatedKFold(n_splits=10, n_repeats=1, random_state=42) 
 for trait in tqdm(traits[::-1][:250]):

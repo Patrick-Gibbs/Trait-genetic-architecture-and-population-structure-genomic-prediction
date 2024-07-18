@@ -10,17 +10,15 @@ from itertools import product
 from copy import deepcopy
 
 RESULTS_PATH = 'Main/results/mlp_lasso_snps'
-INDIVDUAL_RESULTS_PATH = 'Main/results/mlp_lasso_snps/individual'
+INDIVIDUAL = 'Main/results/mlp_lasso_snps/individual'
 
 getAraData = GetAraData(path_to_data='./data', maf=0.05, window_kb=200, r2=0.6)
 
 with open(f'{RESULTS_PATH}/features.csv', 'w') as f:
     pass
 
-
-#for trait in sorted(getAraData.get_filtered_traits()):
 file_addon = ''
-for trait in ['study_126_Trichome_stem_length']:
+for trait in list(pd.read_csv('Main/results/traits_used.csv')['name']):
     print(trait)
     y = getAraData.get_normalised_phenotype(trait)
     X = getAraData.get_genotype(trait)
@@ -192,11 +190,11 @@ for trait in ['study_126_Trichome_stem_length']:
             metrics_copy = metrics.copy()
             metrics_copy['features'] = [sum(e) for e in metrics['features']]
             pd.DataFrame(metrics_copy).to_csv(f'{RESULTS_PATH}/my_lasso_mlp_{trait}_{file_addon}.csv')
-            pd.DataFrame({'index': index, 'y_pred': y_pred, 'y_test': y_test}).to_csv(f'{INDIVDUAL_RESULTS_PATH}/my_lasso_mlp_individual_results{trait}_{file_addon}.csv')
+            pd.DataFrame({'index': index, 'y_pred': y_pred, 'y_test': y_test}).to_csv(f'{INDIVIDUAL}/my_lasso_mlp_individual_results{trait}_{file_addon}.csv')
         return metrics, pd.DataFrame({'index': index, 'y_pred': y_pred, 'y_test': y_test})
 
     metrics, indidual_results = test(set_up, X, y, cv)
     metrics['features'] = [sum(e) for e in metrics['features']]
-    indidual_results.to_csv(f'{INDIVDUAL_RESULTS_PATH}/_individual_results{trait}_{file_addon}.csv')
+    indidual_results.to_csv(f'{INDIVIDUAL}/_individual_results{trait}_{file_addon}.csv')
     print(metrics)
     pd.DataFrame(metrics).to_csv(f'{RESULTS_PATH}/_{trait}_{file_addon}.csv')
