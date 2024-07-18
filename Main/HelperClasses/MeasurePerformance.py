@@ -17,7 +17,7 @@ from copy import deepcopy
 PEARSON_R_STATISTIC = 0
 
 # used to know when a model is using grid search
-GRIDSEARCH_TYPE = type(GridSearchCV(MLPRegressor()))
+GRIDSEARCH_TYPE = type(GridSearchCV(MLPRegressor(), {"hidden_layer_sizes": [(10,), (20,),]}))
 
 """
 Contains helper functions for measuring the performance of machine learning models.
@@ -56,7 +56,6 @@ class Result:
         important_parameters = deepcopy(important_parameters)
         important_parameters.update({'Dimentionality': len(X[0])})
         self.important_parameters = important_parameters
-
 
     def get_header_row(self) -> list:
         """Makes a header row for a csv based on the summery stastics held in the object"""
@@ -204,28 +203,7 @@ class Result_10fold(Result):
         """returns the r2s for each fold of validation"""
         return np.array(self.r2s)
 
-    """Object to store the results from leave on out CV"""
-
-    def __init__(self, model, X, y,important_parameters={}, cv = LeaveOneOut(), name='', n_jobs=-1, write_results = True, plots = False):
-        """takes a `model` and a dataset (`X`, `y`), does leave one out cross validation, the stores the result"""
-        super().__init__(name, important_parameters)
-        # leave on out cv to predict y_hat
-        y_hat = cross_val_predict(model, X, y, n_jobs=n_jobs, cv=cv)
-        # summary statistics
-        self.r2, self.RMSE = r2_score(y, y_hat), mean_squared_error(y, y_hat, squared=False)
-        self.abs_errors = np.sqrt((np.array(y) - np.array(y_hat))**2)
-        self.mean_abs_errors = mean(self.abs_errors)
-        self.standard_error_abs_error =  std(np.sqrt((np.array(y) - np.array(y_hat))**2))*1.
-        self.cross_fold_metrics = {'abs_error': np.abs(y-y_hat)}
-
-    def get_header_row(self) -> list:
-        """Makes a header row for a csv based on the summery stastics held in the object"""
-        return super().get_header_row() + ['mean_abs_errors', 'standard_error_abs_error']
-
-    def get_csv_row(self):
-        """outputs a list of all the summerary stastics heald in this object a list, such that
-        it can from a row of a csv"""
-        return super().get_csv_row() + [self.mean_abs_errors, self.standard_error_abs_error]
+   
 
 """The following functions are used for experiment 3 and allow classification and regression tasks to be handled."""
 def test_linear_model(X, y, 

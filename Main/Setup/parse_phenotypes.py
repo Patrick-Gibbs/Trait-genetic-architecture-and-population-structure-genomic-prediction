@@ -15,9 +15,9 @@ path_to_data = 'data'
 path_to_database = f"{path_to_data}/arapheno_database"
 
 # to redownload the database uncomment the following lines
-# os.system(f"mkdir {path_to_database}")
-# os.system(f"wget https://arapheno.1001genomes.org/static/database.zip -P {path_to_database}")
-# os.system(f"unzip {path_to_database}/database.zip -d {path_to_database}")
+os.system(f"mkdir {path_to_database}")
+os.system(f"wget https://arapheno.1001genomes.org/static/database.zip -P {path_to_database}")
+os.system(f"unzip {path_to_database}/database.zip -d {path_to_database}")
 
 # next we exactact the phenotypes from the database and put them into a directory
 path_to_downloaded_traits = f"{path_to_data}/arapheno_downloaded_phenotypes"
@@ -55,7 +55,7 @@ The next section of code reads the phenotypes from the arapheno_downloaded_pheno
 
 
 outgoing_path = "data/arapheno_downloaded_phenotypes_cleaned/"
-sys(f"mkdir {outgoing_path}")
+os.system(f"mkdir {outgoing_path}")
 for incoming_path in [path_to_downloaded_traits + '/', 'data/ara_herbavore_resistance_phenotypes/']:
     # get csv file names
     csv_files = os.listdir(incoming_path)
@@ -84,3 +84,5 @@ for incoming_path in [path_to_downloaded_traits + '/', 'data/ara_herbavore_resis
             reformatted_df = current_csv
         # write reformatted_df to csv
         reformatted_df.to_csv(outgoing_path + csv_file)
+        # write trait also in plink format for downstream gwas
+        
