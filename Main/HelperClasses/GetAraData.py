@@ -376,10 +376,21 @@ class GetAraData(FileNameManager):
         prune_in = self.get_prune_in_file(trait, mask, repeat=False)
         print('step',3)
 
-        map_file = pd.read_csv(f"{bimbam}.map", sep='\t', names = ['chr', 'id', 'index'])
-        all_ids = map_file['id']
-        ids_of_pruned = prune_in['id']
-        indexes_to_keep = []
+        map_file = pd.read_csv(f"{bimbam}.map", sep='\t', header=None)
+
+        if map_file.shape[1] == 3:
+            names = ['chr', 'id', 'index']
+            map_file.columns = names
+        elif map_file.shape[1] == 4:
+            names = ['chr', 'id', 'cM', 'index']
+            map_file.columns = names
+        else: 
+            raise ValueError(f"map file has {map_file.shape[1]} columns, expected 3-4")
+
+        all_ids = np.array(map_file['id'])
+        ids_of_pruned = np.array(prune_in['id'])
+
+
         
         # finding prune indexes
         i,j = 0,0
