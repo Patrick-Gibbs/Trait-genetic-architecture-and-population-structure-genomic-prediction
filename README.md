@@ -49,8 +49,8 @@ The codebase has 4 major components:
       ```
       python3 -m Main.Code.global_search
       ```
-      Note: Fitting models across all traits takes about 1 week; testing one trait takes about an hour.
-
+      Note: Fitting models across all traits takes about 1 week; testing one trait takes about an hour. One (or specific trait(s) can be tested by changeing line 22 e.g. `traits = ['study_12_FT10']`
+  
     - `gwas.py`: Runs GWAS using the `vcftogwas` Python package for each chosen trait.
 
     - `mlp_pca.py`, `rf_pca.py`, and `linear_pca.py`: Fit each chosen trait using principal components and generate results for figure 3b.
