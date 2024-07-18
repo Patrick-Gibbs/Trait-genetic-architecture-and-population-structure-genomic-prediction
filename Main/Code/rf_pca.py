@@ -9,8 +9,8 @@ OTHER_INFO = "."
 jobs = -1
 
 # directory to store the results generated.
-RESULTS_DIR = "genomic_prediction_programs/Experiments/Paper/pc_rf/"
-INDIVIDUAL = 'genomic_prediction_programs/Experiments/Paper/pc_rf/'
+RESULTS_DIR = "Main/results/rf_pca"
+INDIVIDUAL = "Main/results/rf_pca/individual"
 PC_VARIANCES_TO_TEST = [0.05, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 0.95, 0.97, 0.99, 1]
 
 getAraData = GetAraData(path_to_data='./data', maf=0.05, window_kb=200, r2=0.6)

@@ -14,12 +14,12 @@ from itertools import product
 from sklearn.model_selection import train_test_split
 
 
-RESULTS_PATH = 'genomic_prediction_programs/Experiments/Paper/mlp_pca0.6'
-INDIVDUAL_RESULTS_PATH = 'genomic_prediction_programs/Experiments/Paper/mlp_pca0.6/individual'
+RESULTS_PATH = RESULTS_DIR = "Main/results/mlp_pca"
+INDIVIDUAL = "Main/results/mlp_pca/individual"
 
 getAraData = GetAraData(path_to_data='./data', maf=0.05, window_kb=200, r2=0.6)
 
-for trait in ['study_12_FT10', '']:
+for trait in ['study_12_FT10', 'herbavore_resistance_G2P', 'study_4_M130T666']:
     print(trait)
     y = getAraData.get_normalised_phenotype(trait)
 
@@ -179,5 +179,5 @@ for trait in ['study_12_FT10', '']:
 
 
         # concat all results
-        pd.concat(all_indivual_results, join='outer', ignore_index=True).to_csv(f'{INDIVDUAL_RESULTS_PATH}/individual_results{trait}_pc{pc_var}1.csv')
+        pd.concat(all_indivual_results, join='outer', ignore_index=True).to_csv(f'{INDIVIDUAL}/individual_results{trait}_pc{pc_var}1.csv')
         pd.concat(all_metrics, join='outer', ignore_index=True).to_csv(f'{RESULTS_PATH}/_{trait}_{file_addon}1.csv')
