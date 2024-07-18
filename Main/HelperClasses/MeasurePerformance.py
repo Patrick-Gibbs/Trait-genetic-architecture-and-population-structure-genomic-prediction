@@ -112,7 +112,7 @@ class Result:
 class Result_10fold(Result):
     """Object to store the suits for 10fold, represted 10fold CV"""
 
-    def __init__(self, model, X, y, important_parameters, name='', cv=KFold(10, shuffle=True, random_state=42), n_jobs=-1, save_ind=True):
+    def __init__(self, model, X, y, important_parameters={}, name='', cv=KFold(10, shuffle=True, random_state=42), n_jobs=-1, save_ind=True):
         """takes a `model` and a dataset (`X`, `y`), does leave one out cross validation, the stores the result"""
         super().__init__(name, important_parameters, X ,y)
 

@@ -14,6 +14,8 @@ from sklearn.model_selection import PredefinedSplit
 This script defined GetAraData Object, which is used as a getter for all the data in the project.
 """
 
+PATH_TO_PLINK = 'plink'
+
 class GetAraData(FileNameManager):
     def __init__(self, path_to_data='./data', maf=0.03, r2=0.8, window_kb=10):
         """
@@ -356,10 +358,10 @@ class GetAraData(FileNameManager):
 
         print('step',1)
         if mask is None:
-            print(f"plink --bfile {bimbam} --keep {self.get_trait_accessions_path(trait)} --maf {maf} --indep-pairwise {window_kb} kb 1 {r2} --out {prune_file_path}")
+            print(f"{PATH_TO_PLINK} --bfile {bimbam} --keep {self.get_trait_accessions_path(trait)} --maf {maf} --indep-pairwise {window_kb} kb 1 {r2} --out {prune_file_path}")
             if r2 == 1:
                 r2=0.9999
-            os.system(f"plink --bfile {bimbam} --keep {self.get_trait_accessions_path(trait)} --maf {maf} --indep-pairwise {window_kb} kb 1 {r2} --out {prune_file_path}")
+            os.system(f"{PATH_TO_PLINK} --bfile {bimbam} --keep {self.get_trait_accessions_path(trait)} --maf {maf} --indep-pairwise {window_kb} kb 1 {r2} --out {prune_file_path}")
 
         else:
             print('step',2)
@@ -369,8 +371,8 @@ class GetAraData(FileNameManager):
             include_file_path = include_file_path.replace(')', '\)')
             print(include_file_path)
 
-            print(f"plink --bfile {bimbam} --keep {self.get_trait_accessions_path(trait)} --maf {maf} --indep-pairwise {window_kb} kb 1 {r2} --extract {include_file_path} --out {prune_file_path}")
-            os.system(f"plink --bfile {bimbam} --keep {self.get_trait_accessions_path(trait)} --maf {maf} --indep-pairwise {window_kb} kb 1 {r2} --extract {include_file_path} --out {prune_file_path}")
+            print(f"{PATH_TO_PLINK} --bfile {bimbam} --keep {self.get_trait_accessions_path(trait)} --maf {maf} --indep-pairwise {window_kb} kb 1 {r2} --extract {include_file_path} --out {prune_file_path}")
+            os.system(f"{PATH_TO_PLINK} --bfile {bimbam} --keep {self.get_trait_accessions_path(trait)} --maf {maf} --indep-pairwise {window_kb} kb 1 {r2} --extract {include_file_path} --out {prune_file_path}")
         prune_in = self.get_prune_in_file(trait, mask, repeat=False)
         print('step',3)
 
@@ -413,13 +415,7 @@ class GetAraData(FileNameManager):
 
         bed = open_bed(f"{bimbam}.bed")
         X = bed.read(index=(rows_to_keep, indexes_to_keep))
-        """G = read_plink1_bin(f"{bimbam}.bed", f"{bimbam}.bim", f"{bimbam}.fam", verbose=False)
-        print("converting full genome into numpy array")
-        X = G.values
-        print("filtering numpy array")
-
-        X = X[rows_to_keep[:, np.newaxis], indexes_to_keep]"""
-
+        
         print("clipping the genome between 0,1 remove this step if you are using a genome that is not in 0,1")
         X = np.clip(X,0,1)
         
