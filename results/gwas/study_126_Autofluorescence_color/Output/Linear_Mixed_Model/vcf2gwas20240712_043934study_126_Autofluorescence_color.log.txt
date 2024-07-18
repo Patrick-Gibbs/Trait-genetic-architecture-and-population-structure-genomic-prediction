@@ -1,0 +1,20 @@
+
+vcf2gwas v0.8.9 
+
+Initialising..
+
+Start time: Fri, 12 Jul 2024 04:39
+
+Parsing arguments..
+Genotype file: k2029.vcf.gz
+Phenotype file(s): study_126_Autofluorescence_color
+Gene comparison file: ATH_GO_GOSLIM.txt
+
+Arguments parsed successfully
+
+Preparing files
+
+Checking study_126_Autofluorescence_color..
+Phenotype distribution(s) successfully plotted
+
+Indexing VCF file..
