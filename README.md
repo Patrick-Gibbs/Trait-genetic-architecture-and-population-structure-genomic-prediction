@@ -8,6 +8,9 @@ The results of this study were generated on a virtual machine with 24 cores and 
 
 ## Setup
 The code for this project is almost entirely in Python. The attached YAML file contains all the dependencies and can be loaded into a conda environment using the following command:
+```
+conda env create -f environment.yaml
+```
 In addition, `plink 1.9 (Stable (beta 7.2, 11 Dec 2023))` is used. The codebase calls plink using the alias 'plink'. If plink is not installed on your machine, download it from [here](https://www.cog-genomics.org/plink/). Alternatively, set `PATH_TO_PLINK` on `line 17` of `Main/HelperClasses/GetAraData` to the installed plink path.
 
 All genotypes and phenotypes are publicly available and can be added to the 'Main/data' directory by running:
