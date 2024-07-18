@@ -5,5 +5,7 @@ data/bimbam/k2029.log
 data/bimbam/k2029.vcf.gz
 data/bimbam/k2029.map
 data/functional_data/k2029.map
-data/*
 Main/results/gwas/*
+data/ld_filtered_genomes_temp_files/*
+data/ld_filtered_genomes/*
+data/ara_filtered_genome_indexs/*
