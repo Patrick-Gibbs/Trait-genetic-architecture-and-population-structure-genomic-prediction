@@ -57,3 +57,13 @@ The codebase has 4 major components:
     - `mlp_lasso.py`: Fits the sparse MLP model for each trait as described in Methods 2.3.2.
 
     These files rely on `results/traits_used.csv`.
+
+## References
+
+Purcell, S., Neale, B., Todd-Brown, K., Thomas, L., Ferreira, M. A., Bender, D., ... & Sham, P. C. (2007). PLINK: a tool set for whole-genome association and population-based linkage analyses. The American journal of human genetics, 81(3), 559-575.
+
+Seren, Ü., Grimm, D., Fitz, J., Weigel, D., Nordborg, M., Borgwardt, K., & Korte, A. (2016). AraPheno: a public database for Arabidopsis thaliana phenotypes. Nucleic acids research, gkw986.
+
+Vogt, F., Shirsekar, G., & Weigel, D. (2022). vcf2gwas: Python API for comprehensive GWAS analysis using GEMMA. Bioinformatics, 38(3), 839-840.
+
+
