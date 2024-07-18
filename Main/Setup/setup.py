@@ -115,6 +115,8 @@ def get_genotypes():
     os.system(f"wget https://figshare.com/ndownloader/files/20135384 -O {path_to_data}/bimbam/k2029.vcf.gz")
 
     os.systm(f"plink --bfile {path_to_data}/bimbam/k2029 --recode --out {path_to_data}/bimbam/k2029")
+
+
 # get phenotypes is commented out becouse the resultant data is already in the git
 # get_phenotypes()
 
