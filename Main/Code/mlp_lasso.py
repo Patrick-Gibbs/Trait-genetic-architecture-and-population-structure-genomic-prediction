@@ -1,13 +1,16 @@
 import torch
 from sklearn.metrics import r2_score
-from genomic_prediction_programs.HelperFunctionsAndClasses.GetAraData import *
-from genomic_prediction_programs.HelperFunctionsAndClasses.MeasurePerformance import *
+from Main.HelperClasses.GetAraData import *
+from Main.HelperClasses.MeasurePerformance import *
+from Main.HelperClasses.TorchMLP import *
 from sklearn.model_selection import KFold
+from sklearn.linear_model import Lasso
+from sklearn.model_selection import train_test_split
 from itertools import product
 from copy import deepcopy
 
-RESULTS_PATH = 'genomic_prediction_programs/Experiments/Paper/mlp_0.6r2'
-INDIVDUAL_RESULTS_PATH = 'genomic_prediction_programs/Experiments/Paper/mlp_0.8r2/individual'
+RESULTS_PATH = 'Main/results/mlp_lasso_snps'
+INDIVDUAL_RESULTS_PATH = 'Main/results/mlp_lasso_snps/individual'
 
 getAraData = GetAraData(path_to_data='./data', maf=0.05, window_kb=200, r2=0.6)
 
@@ -16,16 +19,17 @@ with open(f'{RESULTS_PATH}/features.csv', 'w') as f:
 
 
 #for trait in sorted(getAraData.get_filtered_traits()):
-for trait in ['study_1_FRI', 'study_38_CL', 'study_38_RL', 'study_16_Cd111', 'study_12_FT10']:
+file_addon = ''
+for trait in ['study_126_Trichome_stem_length']:
     print(trait)
     y = getAraData.get_normalised_phenotype(trait)
     X = getAraData.get_genotype(trait)
 
     cv = my_Kfold()
-    set_up = {'hidden': [1,2,3],'lr': [0.0015], 'weight_decay': [0, 0.01, 0.1], 
+    set_up = {'hidden': [1,2,3], 'lr': [0.0015], 'weight_decay': [0, 0.01, 0.1], 
                     'memory': [10], 'tol': [0.05, 0.01, 0.005], 'drop_out':[0, 0.1], 'epoch': [250], 'brach_size': [100], 'hidden_layer_size': [2/3]}
 
-    # Used for testsing
+    # Used for testing
     FAST = False
     lasso_space = [2**x for x in range(-7,0)][::-1]
     if FAST:
@@ -35,7 +39,6 @@ for trait in ['study_1_FRI', 'study_38_CL', 'study_38_RL', 'study_16_Cd111', 'st
         set_up = {'hidden': [3],'lr': [0.0015], 'weight_decay': [0], 
                         'memory': [10], 'tol': [0.05], 'drop_out':[0, 0.1], 'epoch': [175], 'brach_size': [100], 'hidden_layer_size': [2/3]}
 
-    file_addon = ''
     def to_cuda(X):
         if type(X) == np.ndarray:
             return torch.from_numpy(X).float().to('cpu')

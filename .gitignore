@@ -4,3 +4,6 @@ data/bimbam/k2029.fam
 data/bimbam/k2029.log
 data/bimbam/k2029.vcf.gz
 data/bimbam/k2029.map
+data/functional_data/k2029.map
+data/*
+Main/results/gwas/*

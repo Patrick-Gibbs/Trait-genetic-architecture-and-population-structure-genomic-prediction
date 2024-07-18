@@ -1,12 +1,8 @@
-from genomic_prediction_programs.HelperFunctionsAndClasses.GetAraData import *
-from genomic_prediction_programs.HelperFunctionsAndClasses.MeasurePerformance import *
-from genomic_prediction_programs.HelperFunctionsAndClasses.rrBLUP import *
-from sklearn.linear_model import RidgeCV, LinearRegression
-from sklearn.dummy import DummyRegressor
+from Main.HelperClasses.GetAraData import *
+from Main.HelperClasses.MeasurePerformance import *
+from sklearn.ensemble import RandomForestRegressor
 import pandas as pd
 from tqdm import tqdm
-
-
 
 
 OTHER_INFO = "."

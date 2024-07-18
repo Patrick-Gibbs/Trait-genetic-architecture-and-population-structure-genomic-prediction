@@ -6,10 +6,13 @@ Fits a MLP model to the data using PCA to reduce the number of features.
 
 import torch
 from sklearn.metrics import r2_score
-from genomic_prediction_programs.HelperFunctionsAndClasses.GetAraData import *
-from genomic_prediction_programs.HelperFunctionsAndClasses.MeasurePerformance import *
+from Main.HelperClasses.GetAraData import *
+from Main.HelperClasses.MeasurePerformance import *
+from Main.HelperClasses.TorchMLP import *
 from sklearn.model_selection import KFold
 from itertools import product
+from sklearn.model_selection import train_test_split
+
 
 RESULTS_PATH = 'genomic_prediction_programs/Experiments/Paper/mlp_pca0.6'
 INDIVDUAL_RESULTS_PATH = 'genomic_prediction_programs/Experiments/Paper/mlp_pca0.6/individual'

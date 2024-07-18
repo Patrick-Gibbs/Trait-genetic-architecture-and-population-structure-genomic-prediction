@@ -31,6 +31,12 @@ class GetAraData(FileNameManager):
         self.SET_OF_PARTITION_SIZES = [1, 2, 3, 4, 5, 7, 10, 12, 15, 17, 20, 23, 25, 28, 30, 32, 35, 40, 50, 60, 75, 90,
                                        100, 140, 250, 300, 500, 750, 1000]
 
+
+    def get_vcf_path(self):
+        """returns the path to the vcf file"""
+        return self.path_to_vcf_file
+
+
     def get_file_suffix(self, trait: str) -> str:
         """
         returns a suffix to be added to the end of a file name to indicate the trait
@@ -57,7 +63,7 @@ class GetAraData(FileNameManager):
 
     def go_terms_path(self) -> str:
         """returns the path to the go terms"""
-        return self.path_to_functional_data + '/ATH_GO_GOSLIM.txt'
+        return self.path_to_functional_data + 'ATH_GO_GOSLIM.txt'
 
     def trait_name_to_csv_file_name(self, trait_name: str) -> str:
         """takes a trait name and turns it indo a csv file name"""
@@ -87,6 +93,10 @@ class GetAraData(FileNameManager):
                             self.trait_name_to_csv_file_name(trait))
             new_csv = pd.DataFrame({'': df['accession_id'], trait: df['phenotype_value']})
             new_csv.to_csv(self.path_to_phenotype_csv_for_gwas + trait, index=False)
+
+    def get_gwas_path(self, trait):
+        """returns the path to the gwas file"""
+        return self.path_to_phenotype_csv_for_gwas + trait
 
     def save_dummy_genome(self):
         """saves a simulated genome"""
@@ -324,6 +334,10 @@ class GetAraData(FileNameManager):
             else:
                 raise FileNotFoundError
 
+
+    def get_trait_accessions_path(self, trait):
+        return f"{self.trait_accessions_path}{trait}" 
+
     def save_ld_filtered_genome(self, trait, mask=None):
         # saves a accession fam file to be read by plink
         #return map_file
@@ -333,32 +347,32 @@ class GetAraData(FileNameManager):
         
         acc = self.get_trait_accessions(trait)
         acc = np.array([acc,acc]).T.astype(int)
-        np.savetxt(f"{trait}_accessions", acc, fmt='%i')
+        np.savetxt(self.get_trait_accessions_path(trait), acc, fmt='%i')
         bimbam = self.path_to_bim_bam_files
         prune_file_path = self.get_prune_in_file_path(trait, mask)
         prune_file_path = prune_file_path.replace('(', '\(')
         prune_file_path = prune_file_path.replace(')', '\)')
         print(prune_file_path)
 
-        print(1)
+        print('step',1)
         if mask is None:
-            print(f"plink --bfile {bimbam} --keep {trait}_accessions --maf {maf} --indep-pairwise {window_kb} kb 1 {r2} --out {prune_file_path}")
+            print(f"plink --bfile {bimbam} --keep {self.get_trait_accessions_path(trait)} --maf {maf} --indep-pairwise {window_kb} kb 1 {r2} --out {prune_file_path}")
             if r2 == 1:
                 r2=0.9999
-            os.system(f"plink --bfile {bimbam} --keep {trait}_accessions --maf {maf} --indep-pairwise {window_kb} kb 1 {r2} --out {prune_file_path}")
+            os.system(f"plink --bfile {bimbam} --keep {self.get_trait_accessions_path(trait)} --maf {maf} --indep-pairwise {window_kb} kb 1 {r2} --out {prune_file_path}")
 
         else:
-            print(2)
+            print('step',2)
             include_file_path = mask.get_path_to_include()
             print(include_file_path)
             include_file_path = include_file_path.replace('(', '\(')
             include_file_path = include_file_path.replace(')', '\)')
             print(include_file_path)
 
-            print(f"plink --bfile {bimbam} --keep {trait}_accessions --maf {maf} --indep-pairwise {window_kb} kb 1 {r2} --extract {include_file_path} --out {prune_file_path}")
-            os.system(f"plink --bfile {bimbam} --keep {trait}_accessions --maf {maf} --indep-pairwise {window_kb} kb 1 {r2} --extract {include_file_path} --out {prune_file_path}")
+            print(f"plink --bfile {bimbam} --keep {self.get_trait_accessions_path(trait)} --maf {maf} --indep-pairwise {window_kb} kb 1 {r2} --extract {include_file_path} --out {prune_file_path}")
+            os.system(f"plink --bfile {bimbam} --keep {self.get_trait_accessions_path(trait)} --maf {maf} --indep-pairwise {window_kb} kb 1 {r2} --extract {include_file_path} --out {prune_file_path}")
         prune_in = self.get_prune_in_file(trait, mask, repeat=False)
-        print(3)
+        print('step',3)
 
         map_file = pd.read_csv(f"{bimbam}.map", sep='\t', names = ['chr', 'id', 'index'])
         all_ids = map_file['id']
