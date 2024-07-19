@@ -62,6 +62,7 @@ The rest of the Code modules uses only selected traits i.e. with at least one mo
     - `mlp_lasso.py`: Fits the sparse MLP model for each trait as described in Methods 2.3.2.
 
 ## References
+Gibbs, P., Paril, J., & Fournier-Level, A. (2024). Trait genetic architecture and population structure determine model selection for genomic prediction in natural Arabidopsis Thaliana populations. bioRxiv, 2024-07.
 
 Purcell, S., Neale, B., Todd-Brown, K., Thomas, L., Ferreira, M. A., Bender, D., ... & Sham, P. C. (2007). PLINK: a tool set for whole-genome association and population-based linkage analyses. The American journal of human genetics, 81(3), 559-575.
 
