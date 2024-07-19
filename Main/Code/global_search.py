@@ -11,10 +11,10 @@ INDIVIDUAL_RESULTS = 'Main/results/all_traits_snps/individual'
 RESULTS = "Main/results/all_traits_snps/"
 ara_data = GetAraData(path_to_data='/Research_Data_new/ReasearchProject/data', maf=0.05, window_kb=200, r2=0.6)
 
-traits = [e for e in sorted(ara_data.get_trait_names()) if e not in list(pd.read_csv('Main/results/traits_used.csv')['name'])]
+traits =  sorted(ara_data.get_trait_names())
 
 cv = RepeatedKFold(n_splits=10, n_repeats=1, random_state=42) 
-for trait in tqdm(traits[::-1][:250][75:]):
+for trait in tqdm(traits):
 
     # get data
     print("trait: ", trait)
