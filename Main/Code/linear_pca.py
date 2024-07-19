@@ -12,9 +12,9 @@ ara_data = GetAraData(path_to_data='./data', maf=0.05, window_kb=200, r2=0.6)
 cv = RepeatedKFold(n_splits=10, n_repeats=1, random_state=42)
 PC_VARIANCES_TO_TEST = [0.05, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7,  0.8,  0.9, 0.95, 0.97, 0.99, 1]
 
-alphas= [2**x for x in range(-20,20)]
 RESULTS_DIR = "Main/results/linear_pca"
 INDIVIDUAL = 'Main/results/linear_pca/individual'
+
 for trait in (['study_12_FT10', 'herbavore_resistance_G2P', 'study_4_M130T666']):
     trait_results = []
     for pc_var in tqdm(PC_VARIANCES_TO_TEST):
