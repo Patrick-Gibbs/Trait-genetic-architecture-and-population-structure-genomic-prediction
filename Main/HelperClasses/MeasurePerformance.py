@@ -222,7 +222,8 @@ def test_linear_model(X, y,
     trait_name = None,
     lasso_tol = 0.0001,
     lasso_learning_rate = 0.001,
-    save_ind=True
+    save_ind=True,
+    precomute_gram=None
     ):
     """tests ridge, lasso, and elastic net regression on a dataset for a range of different penalisation parameters.
     `import_parameters` is a dictionary of ifomation to be saved in the csv with the model.
@@ -267,7 +268,6 @@ def test_linear_model(X, y,
         n_lambda = len(penalisation_values)
     
     # elastic net model to be tested, uses GLM net package
-    # elastic net model to be tested, uses GLM net package
     if enet_reg_path is not None:
         enet = GridSearchCV(ElasticNet(n_splits=5, n_jobs=10, lambda_path=enet_reg_path, max_iter=1000000), param_grid = {'alpha': ratios}, n_jobs=n_jobs)
     else:
@@ -275,7 +275,7 @@ def test_linear_model(X, y,
     
     
     models = [RidgeCV(alphas = np.array(penalisation_values)), 
-              LassoCV(alphas=penalisation_values, cv=lasso_cv, max_iter=1000000, tol=lasso_tol, eps=lasso_learning_rate),
+              LassoCV(alphas=penalisation_values, cv=lasso_cv, max_iter=1000000, tol=lasso_tol, eps=lasso_learning_rate, precompute=precomute_gram),
               enet]
 
     # includes only chosen models based on the function arguments 
@@ -300,12 +300,12 @@ def make_results_to_csv(results_objects, results_dir, other_info, trait, model):
 
     # saves the results for linear regression to a csv
     df_v = results_objects[-1].make_resuslts_objects_into_vervose_csv(results_objects)
-    df_v.to_csv(f"{results_dir}_{trait}_{model}_verbose_{other_info}.csv")
-    
-    # saves the results for linear regression to a csv
     df = results_objects[-1].make_resuslts_objects_into_csv(results_objects)
+    
     if other_info:
+        df_v.to_csv(f"{results_dir}_{trait}_{model}_verbose_{other_info}.csv")
         df.to_csv(f"{results_dir}{trait}_{model}_{other_info}.csv")
     else:
+        df_v.to_csv(f"{results_dir}_{trait}_{model}_verbose.csv")
         df.to_csv(f"{results_dir}{trait}_{model}.csv")
 
