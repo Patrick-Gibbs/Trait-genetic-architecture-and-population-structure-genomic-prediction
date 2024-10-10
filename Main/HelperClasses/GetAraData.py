@@ -2,13 +2,16 @@ import functools
 import operator
 import pandas as pd
 import numpy as np
+import pickle
 import re
 from tqdm import tqdm
 import os
 from bed_reader import open_bed
 from sklearn.decomposition import PCA
 from Main.HelperClasses.FileNameManger import FileNameManager
+from Main.HelperClasses.MeasurePerformance import *
 from sklearn.model_selection import PredefinedSplit
+from sklearn.ensemble import RandomForestRegressor
 
 """
 This script defined GetAraData Object, which is used as a getter for all the data in the project.
@@ -195,7 +198,7 @@ class GetAraData(FileNameManager):
             np.save(f, X_pc)
             f.close()
 
-    def load_or_generate_features(self, file_path, data_generator, read_mode='rb', write_mode='wb'):
+    def load_or_generate_features(self, file_path, data_generator, read_mode='rb', write_mode='wb', how=np.load):
         """loads and returns a dataset with `file_path`, if the file is not found
         then it is generated using `data_generator` function"""
         try:
@@ -204,7 +207,7 @@ class GetAraData(FileNameManager):
             print(file_path, "not found, generating data using", data_generator)
             data_generator()
             f = open(file_path, read_mode)
-        X = np.load(f)
+        X = how(f)
         f.close()
         return X
 
@@ -391,7 +394,8 @@ class GetAraData(FileNameManager):
         ids_of_pruned = np.array(prune_in['id'])
 
 
-        
+        indexes_to_keep = []
+
         # finding prune indexes
         i,j = 0,0
         print("finding prune indexes")
@@ -412,8 +416,8 @@ class GetAraData(FileNameManager):
                 rows_to_keep.append(i)
                 j += 1
             i += 1
+            
         rows_to_keep = np.array(rows_to_keep)
-
         indexes_to_keep = np.array(indexes_to_keep)
 
         print("saving indexes to kept at ", self.trait_name_to_corrosponding_filtered_indexs_path(trait, mask))
@@ -451,3 +455,41 @@ class GetAraData(FileNameManager):
         if return_full_map:
             return full_map
         return possitions
+    
+
+    def get_save_rf_features_path(self, trait, feature_nums):
+        return self.path_to_rf_features + trait + self.get_file_suffix(trait) + '_' + str(hash(tuple(feature_nums)))
+
+    def save_rf_features(self, trait, cv=my_RepeatedKfold(10,1), feature_nums=[1,2,3,4,5,10,50,100,200,500,1000]):
+        y = self.get_normalised_phenotype(trait)
+        X = self.get_genotype(trait)
+        output = self.get_save_rf_features_path(trait, feature_nums)
+
+        features = {k:[] for k in feature_nums}
+        for train, test in tqdm(cv.split(X,y)):
+            X_train = X[train]
+            y_train = y[train]
+            rf=RandomForestRegressor(n_estimators=500, n_jobs=-1, max_depth=max(feature_nums))
+            rf.fit(X_train, y_train)
+            importances = rf.feature_importances_
+            for feature_num in feature_nums:
+                print(feature_num)
+                feature_importance_df = pd.DataFrame({
+                    'Feature': list(range(len(X_train[0]))),
+                    'Importance': importances
+                }).sort_values(by='Importance', ascending=False)
+                features[feature_num].append(np.array(feature_importance_df[:feature_num]['Feature']))
+        pickle.dump(features,open(output,'wb'))
+
+
+    def get_rf_features(self, trait, feature_nums=[1,2,3,4,5,10,50,100,200,500,1000]):
+        path = self.get_save_rf_features_path(trait, feature_nums)
+        
+        r = self.load_or_generate_features(path,
+                                           lambda: self.save_rf_features(trait=trait, feature_nums=feature_nums),
+                                           how=pickle.load
+        )
+
+        return r
+
+                
