@@ -17,3 +17,6 @@ class FileNameManager:
         self.path_to_vcf_file = path_to_data + '/bimbam/k2029.vcf.gz'
         self.trait_accessions_path = path_to_data + '/trait_accessions/'
         self.path_to_functional_data = path_to_data + '/functional_data/'
+        self.path_to_rf_features = path_to_data + '/rf_features/'
+
+        self.rf_feature_nums = [1, 2, 3, 4, 5, 10, 50, 100, 200, 500, 1000]

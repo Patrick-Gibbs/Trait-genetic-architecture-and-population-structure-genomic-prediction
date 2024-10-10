@@ -4,6 +4,7 @@ from sklearn.linear_model import RidgeCV, LassoCV
 from sklearn.model_selection import RepeatedKFold, KFold
 from sklearn.metrics import r2_score, mean_squared_error
 from sklearn.model_selection import cross_val_predict, cross_validate, KFold, LeaveOneOut, GridSearchCV, RepeatedKFold
+from tqdm import tqdm
 
 from glmnet import ElasticNet
 
@@ -256,6 +257,7 @@ def test_linear_model(X, y,
 
     penalisation_values = alphas
     
+    
     # sets the number of jobs to use to avoid memory overflow
 
 
@@ -265,7 +267,12 @@ def test_linear_model(X, y,
         ratios = [0.5, 0.99]
         n_lambda = 2
     else:
-        n_lambda = len(penalisation_values)
+        if type(penalisation_values) == int:
+            n_lambda = penalisation_values
+        elif penalisation_values == None:
+            n_lambda=1
+        else:
+            n_lambda = len(penalisation_values)
     
     # elastic net model to be tested, uses GLM net package
     if enet_reg_path is not None:
@@ -308,4 +315,25 @@ def make_results_to_csv(results_objects, results_dir, other_info, trait, model):
     else:
         df_v.to_csv(f"{results_dir}_{trait}_{model}_verbose.csv")
         df.to_csv(f"{results_dir}{trait}_{model}.csv")
+
+
+def rf_select_tester(model, X, y, features, feature_nums, df_path):
+    score_dict = {k:[] for k in feature_nums}    
+
+    for i, (train, test) in tqdm(enumerate(cv.split())):
+        for feature_num in feature_nums:
+            X_train = X[train][features[feature_num][i]]
+            y_train = y[train]
+            X_test = X[test][features[feature_num][i]]
+            y_test = y[test]
+
+            model.fit(X_train, y_train)
+            pred = model.predict(X_test)
+            score_dict[feature_num].append(r2_score(y_test,pred))
+
+    df_dict = {'feature_num': np.array([[i]*10 for i in feature_nums]).flatten(), 
+               'r2s': np.array([score_dict[i] for i in feature_nums]).flatten()}
+    pd.DataFrame(df_dict).to_csv(df_path)
+
+
 
