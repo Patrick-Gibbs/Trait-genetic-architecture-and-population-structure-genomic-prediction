@@ -52,13 +52,13 @@ PATH_IND = 'Main/results/snp_selection/individual'
 for trait in list(pd.read_csv('Main/results/traits_used.csv')['name']):
     features = ara_data.get_rf_features(trait)
 
-for i, trait in enumerate(list(pd.read_csv('Main/results/traits_used.csv')['name'])[5:]):
+for i, trait in enumerate(['study_12_FT10','herbavore_resistance_G2P']): # enumerate(list(pd.read_csv('Main/results/traits_used.csv')['name'])[5:]):
     print('-'*5 + str(i) + '-'*5)
     X = ara_data.get_genotype(trait)
     y = ara_data.get_normalised_phenotype(trait)
     features = ara_data.get_rf_features(trait)
-    #model = RidgeCV()
-    #rf_select_tester(model, X, y, features, ara_data.rf_feature_nums, PATH, PATH_IND, trait, 'ridge')
+    model = RidgeCV(alphas = [1.15**x for x in range(-140,140)])
+    rf_select_tester(model, X, y, features, ara_data.rf_feature_nums, PATH, PATH_IND, trait, 'Ridge')
     #
     #model = LassoCV(precompute=False)
     #rf_select_tester(model, X, y, features, ara_data.rf_feature_nums, PATH, PATH_IND, trait, 'lasso')
@@ -70,6 +70,6 @@ for i, trait in enumerate(list(pd.read_csv('Main/results/traits_used.csv')['name
     #enet = GridSearchCV(ElasticNet(n_splits=5, n_jobs=10, max_iter=1000000), param_grid = {'alpha': ratios}, n_jobs=-1)
     #rf_select_tester(enet, X, y, features, ara_data.rf_feature_nums, PATH, PATH_IND, trait, 'ElasticNet')
 
-    rf_select_tester('MLP', X, y, features, ara_data.rf_feature_nums, PATH, PATH_IND, trait, 'MLP')
+    #rf_select_tester('MLP', X, y, features, ara_data.rf_feature_nums, PATH, PATH_IND, trait, 'MLP')
     
 
