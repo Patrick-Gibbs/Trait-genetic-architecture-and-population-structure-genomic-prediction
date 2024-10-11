@@ -52,7 +52,7 @@ PATH_IND = 'Main/results/snp_selection/individual'
 for trait in list(pd.read_csv('Main/results/traits_used.csv')['name']):
     features = ara_data.get_rf_features(trait)
 
-for i, trait in enumerate(['study_12_FT10','herbavore_resistance_G2P']): # enumerate(list(pd.read_csv('Main/results/traits_used.csv')['name'])[5:]):
+for i, trait in  enumerate(list(pd.read_csv('Main/results/traits_used.csv')['name'])):
     print('-'*5 + str(i) + '-'*5)
     X = ara_data.get_genotype(trait)
     y = ara_data.get_normalised_phenotype(trait)
