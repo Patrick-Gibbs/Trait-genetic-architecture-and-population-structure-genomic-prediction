@@ -1,0 +1,20 @@
+Num_Kinships 1
+Num_Regions 0
+Num_Top_Predictors 0
+Num_Covariates 1
+Num_Environments 0
+Blupfile Main/results/narrow_sense_h/study_2_YieldMainEffect20091.indi.blp
+Regfile none
+Coeffsfile Main/results/narrow_sense_h/study_2_YieldMainEffect20091.coeff
+Covar_Heritability -0.0000
+Total_Samples 454
+With_Phenotypes 454
+Converged YES
+Null_Likelihood -646.3377
+Alt_Likelihood -599.4643
+LRT_Stat 93.7468
+LRT_P 1.7930e-22
+Component Heritability SD Size Mega_Intensity SD
+Her_K1 0.708032 0.095382 531266.00 1.332727 0.179537
+Her_Top 0.000000 NA NA NA NA
+Her_All 0.708032 0.095382 531266.00 1.332727 0.179537

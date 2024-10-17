@@ -460,6 +460,11 @@ class GetAraData(FileNameManager):
     def get_save_rf_features_path(self, trait, feature_nums):
         return self.path_to_rf_features + trait + self.get_file_suffix(trait) + '_' + str(hash(tuple(feature_nums)))
 
+    def save_plink_pheno(self, trait):
+        acc = self.get_k2029_accessions_with_phenotype(trait)
+        pheno = self.get_normalised_phenotype(trait)
+        pd.DataFrame({1:acc,2:acc,3:pheno}).to_csv(f'{self.plink_path}/{trait}',sep='\t', header=None, index=False)
+
     def save_rf_features(self, trait, cv=my_RepeatedKfold(10,1), feature_nums=[1,2,3,4,5,10,50,100,200,500,1000]):
         y = self.get_normalised_phenotype(trait)
         X = self.get_genotype(trait)

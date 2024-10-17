@@ -1,0 +1,20 @@
+Num_Kinships 1
+Num_Regions 0
+Num_Top_Predictors 0
+Num_Covariates 1
+Num_Environments 0
+Blupfile Main/results/narrow_sense_h/study_2_DTFmainEffect20091.indi.blp
+Regfile none
+Coeffsfile Main/results/narrow_sense_h/study_2_DTFmainEffect20091.coeff
+Covar_Heritability 0.0000
+Total_Samples 468
+With_Phenotypes 468
+Converged NO
+Null_Likelihood -666.2180
+Alt_Likelihood -572.8011
+LRT_Stat 186.8337
+LRT_P 7.8066e-43
+Component Heritability SD Size Mega_Intensity SD
+Her_K1 0.568816 0.135259 531266.00 1.070679 0.254597
+Her_Top 0.000000 NA NA NA NA
+Her_All 0.568816 0.135259 531266.00 1.070679 0.254597

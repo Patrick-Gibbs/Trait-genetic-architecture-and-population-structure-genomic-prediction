@@ -1,0 +1,20 @@
+Num_Kinships 1
+Num_Regions 0
+Num_Top_Predictors 0
+Num_Covariates 1
+Num_Environments 0
+Blupfile Main/results/narrow_sense_h/herbavore_resistance_G2H3B.indi.blp
+Regfile none
+Coeffsfile Main/results/narrow_sense_h/herbavore_resistance_G2H3B.coeff
+Covar_Heritability 0.0000
+Total_Samples 595
+With_Phenotypes 595
+Converged YES
+Null_Likelihood -846.5433
+Alt_Likelihood -671.1903
+LRT_Stat 350.7060
+LRT_P 1.4872e-78
+Component Heritability SD Size Mega_Intensity SD
+Her_K1 0.647606 0.062523 680048.00 0.952295 0.091938
+Her_Top 0.000000 NA NA NA NA
+Her_All 0.647606 0.062523 680048.00 0.952295 0.091938

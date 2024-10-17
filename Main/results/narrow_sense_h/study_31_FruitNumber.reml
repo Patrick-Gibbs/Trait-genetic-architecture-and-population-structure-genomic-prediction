@@ -1,0 +1,20 @@
+Num_Kinships 1
+Num_Regions 0
+Num_Top_Predictors 0
+Num_Covariates 1
+Num_Environments 0
+Blupfile Main/results/narrow_sense_h/study_31_FruitNumber.indi.blp
+Regfile none
+Coeffsfile Main/results/narrow_sense_h/study_31_FruitNumber.coeff
+Covar_Heritability 0.0000
+Total_Samples 409
+With_Phenotypes 409
+Converged YES
+Null_Likelihood -582.4332
+Alt_Likelihood -519.7854
+LRT_Stat 125.2955
+LRT_P 2.1927e-29
+Component Heritability SD Size Mega_Intensity SD
+Her_K1 0.807013 0.075849 680048.00 1.186701 0.111535
+Her_Top 0.000000 NA NA NA NA
+Her_All 0.807013 0.075849 680048.00 1.186701 0.111535

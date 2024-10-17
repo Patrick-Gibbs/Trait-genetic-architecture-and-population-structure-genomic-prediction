@@ -1,0 +1,36 @@
+PLINK v1.90b6.21 64-bit (19 Oct 2020)
+Options in effect:
+  --bfile k2029
+  --indep-pairwise 200 kb 1 0.6
+  --maf 0.05
+  --out k2029.maf005.indpw
+
+Hostname: pencil
+Working directory: /Research_Data_new/Trait-genetic-architecture-and-population-structure-genomic-prediction/data/bimbam
+Start time: Mon Oct 14 09:21:48 2024
+
+Random number seed: 1728897708
+983869 MB RAM detected; reserving 491934 MB for main workspace.
+10709466 variants loaded from .bim file.
+2029 people (0 males, 0 females, 2029 ambiguous) loaded from .fam.
+Ambiguous sex IDs written to k2029.maf005.indpw.nosex .
+287 phenotype values loaded from .fam.
+Warning: Ignoring phenotypes of missing-sex samples.  If you don't want those
+phenotypes to be ignored, use the --allow-no-sex flag.
+Using 1 thread (no multithreaded calculations invoked).
+Before main variant filters, 2029 founders and 0 nonfounders present.
+Calculating allele frequencies... done.
+8946462 variants removed due to minor allele threshold(s)
+(--maf/--max-maf/--mac/--max-mac).
+1763004 variants and 2029 people pass filters and QC.
+Note: No phenotypes present.
+Pruned 345310 variants from chromosome 1, leaving 86799.
+Pruned 241584 variants from chromosome 2, leaving 51359.
+Pruned 276327 variants from chromosome 3, leaving 71535.
+Pruned 226938 variants from chromosome 4, leaving 57486.
+Pruned 332821 variants from chromosome 5, leaving 72845.
+Pruning complete.  1422980 of 1763004 variants removed.
+Marker lists written to k2029.maf005.indpw.prune.in and
+k2029.maf005.indpw.prune.out .
+
+End time: Mon Oct 14 09:30:40 2024

@@ -1,0 +1,20 @@
+Num_Kinships 1
+Num_Regions 0
+Num_Top_Predictors 0
+Num_Covariates 1
+Num_Environments 0
+Blupfile Main/results/narrow_sense_h/study_44_root_length_day003.indi.blp
+Regfile none
+Coeffsfile Main/results/narrow_sense_h/study_44_root_length_day003.coeff
+Covar_Heritability 0.0000
+Total_Samples 231
+With_Phenotypes 231
+Converged YES
+Null_Likelihood -329.5760
+Alt_Likelihood -304.4635
+LRT_Stat 50.2250
+LRT_P 6.8544e-13
+Component Heritability SD Size Mega_Intensity SD
+Her_K1 0.815053 0.109737 680048.00 1.198523 0.161367
+Her_Top 0.000000 NA NA NA NA
+Her_All 0.815053 0.109737 680048.00 1.198523 0.161367

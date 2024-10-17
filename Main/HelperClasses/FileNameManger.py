@@ -18,5 +18,6 @@ class FileNameManager:
         self.trait_accessions_path = path_to_data + '/trait_accessions/'
         self.path_to_functional_data = path_to_data + '/functional_data/'
         self.path_to_rf_features = path_to_data + '/rf_features/'
+        self.plink_path = path_to_data + '/plink_traits/'
 
         self.rf_feature_nums = [1, 2, 3, 4, 5, 10, 50, 100, 200, 500, 1000]
