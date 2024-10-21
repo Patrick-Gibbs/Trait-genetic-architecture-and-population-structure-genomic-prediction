@@ -3,7 +3,7 @@ herbavore_resistance_G2H3B,,,,,biochemical trait (TO:0000277),Ridge,biochemical 
 herbavore_resistance_G2H4P,,,,,biochemical trait (TO:0000277),Ridge,biochemical trait
 herbavore_resistance_G2P,,,,,biochemical trait (TO:0000277),Random Forest,biochemical trait
 herbavore_resistance_G3B,,,,,biochemical trait (TO:0000277),Ridge,biochemical trait
-herbavore_resistance_G3HP,,,,,biochemical trait (TO:0000277),Lasso,biochemical trait
+herbavore_resistance_G3HP,,,,,biochemical trait (TO:0000277),Random Forest,biochemical trait
 herbavore_resistance_G4MSB,,,,,biochemical trait (TO:0000277),Random Forest,biochemical trait
 herbavore_resistance_G4P,,,,,biochemical trait (TO:0000277),Ridge,biochemical trait
 herbavore_resistance_G5MSP,,,,,biochemical trait (TO:0000277),Random Forest,biochemical trait

@@ -1,0 +1,2 @@
+,Model_Name,feature_represenation,variance_maintained,Dimentionality,r2_summary,RMSE_summary,r2_train,RMSE_train,standard_error_r2,standard_error_RMSE,standard_error_r2_train,standard_error_RMSE_train
+0,Random_Forest,SNPs,-,79682,0.372668454528003,0.7864490221281126,0.9129414230415825,0.2950161131040805,0.10288190745311493,0.11422658127386003,0.0032766579578374666,0.00577272513950872
