@@ -33,7 +33,8 @@ for trait in ['study_1_Storage_28_days']:#list(pd.read_csv('Main/results/traits_
         trait_results += test_linear_model(X, y, cv=cv, alphas= [1.5**x for x in range(-15,20)], n_jobs=-1, pca_variance=pc_var, name_of_feature_representations='PCA_SNPS',
                                             ridge_lasso_enet=[False, False, True])
 
-       
+        #trait_results += Measure
+
         make_results_to_csv(trait_results, RESULTS_DIR, '', trait, 'linear')
         trait_results[-1].get_indidual_predictions().to_csv(f"{INDIVIDUAL}/{trait}_linear_{'PCA_SNPS'}_individual_pca{(str(pc_var))}.csv")
         
