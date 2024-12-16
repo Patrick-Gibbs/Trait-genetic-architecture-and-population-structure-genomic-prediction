@@ -1,6 +1,6 @@
 """
-Fits a MLP model to the data using PCA to reduce the number of features.
-
+Fits a MLP model to the data using PCA to reduce the number of features. used to making PCA-releated figures.
+Code simular to `mlp_lasso.py` but rather uses PCs instead of preselected SNPs
 """
 
 
@@ -166,8 +166,7 @@ for trait in ['study_12_FT10', 'herbavore_resistance_G2P', 'study_4_M130T666']:
     all_metrics = []
     all_indivual_results = []
 
-    #for pc_var in [0.05, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 0.95, 0.97, 0.99, 1]:
-    for pc_var in [1]:
+    for pc_var in [0.05, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 0.95, 0.97, 0.99, 1]:
         X = getAraData.get_pca_feature_reduced_SNPs(trait, variance_maintained=pc_var)
         print(X.shape)
         metrics, indidual_results = test(set_up, X, y, cv)
@@ -179,5 +178,5 @@ for trait in ['study_12_FT10', 'herbavore_resistance_G2P', 'study_4_M130T666']:
 
 
         # concat all results
-        pd.concat(all_indivual_results, join='outer', ignore_index=True).to_csv(f'{INDIVIDUAL}/individual_results{trait}_pc{pc_var}1.csv')
-        pd.concat(all_metrics, join='outer', ignore_index=True).to_csv(f'{RESULTS_PINDIVIDUALdon}1.csv')
+        pd.concat(all_indivual_results, join='outer', ignore_index=True).to_csv(f'{INDIVIDUAL}/individual_results{trait}_pc{pc_var}.csv')
+        pd.concat(all_metrics, join='outer', ignore_index=True).to_csv(f'{INDIVIDUAL}.csv')

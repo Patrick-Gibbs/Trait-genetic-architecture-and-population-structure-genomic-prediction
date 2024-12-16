@@ -1,6 +1,5 @@
 """
-Fits a MLP model to the data using PCA to reduce the number of features.
-
+Fits a MLP model to the data using PCA to reduce the number of features. Results from this code are for the MLP line in figure 3d
 """
 
 

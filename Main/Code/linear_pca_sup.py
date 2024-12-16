@@ -1,3 +1,10 @@
+"""
+Fits linear regression to the principal components of the markers across each trait.
+This code was added in response with the first round of reviewer comments.
+"""
+
+
+
 from Main.HelperClasses.GetAraData import *
 from Main.HelperClasses.MeasurePerformance import *
 from sklearn.linear_model import RidgeCV, LinearRegression
@@ -22,19 +29,18 @@ for trait in list(pd.read_csv('Main/results/traits_used.csv')['name']):
         X = ara_data.get_pca_feature_reduced_SNPs(trait, variance_maintained=pc_var)
         y = ara_data.get_normalised_phenotype(trait)
        
-        #trait_results += test_linear_model(X, y, cv=cv, alphas= [1.25**x for x in range(-50,50)], n_jobs=-1, pca_variance=pc_var, name_of_feature_representations='PCA_SNPS'
-        #                                  , ridge_lasso_enet=[True, False, False])
-        #
-
-        #trait_results += test_linear_model(X, y, cv=cv, alphas=None, n_jobs=-1, pca_variance=pc_var, name_of_feature_representations='PCA_SNPS',
-        #                                   ridge_lasso_enet=[False, True, False], lasso_tol=0.01, lasso_cv=my_Kfold(k=5,state=2), precomute_gram=False)
-        #
-        #
-        #trait_results += test_linear_model(X, y, cv=cv, alphas= [1.5**x for x in range(-15,20)], n_jobs=-1, pca_variance=pc_var, name_of_feature_representations='PCA_SNPS',
-                                            #ridge_lasso_enet=[False, False, True])
+        trait_results += test_linear_model(X, y, cv=cv, alphas= [1.25**x for x in range(-50,50)], n_jobs=-1, pca_variance=pc_var, name_of_feature_representations='PCA_SNPS'
+                                          , ridge_lasso_enet=[True, False, False])
+        
+        trait_results += test_linear_model(X, y, cv=cv, alphas=None, n_jobs=-1, pca_variance=pc_var, name_of_feature_representations='PCA_SNPS',
+                                           ridge_lasso_enet=[False, True, False], lasso_tol=0.01, lasso_cv=my_Kfold(k=5,state=2), precomute_gram=False)
+        
+        
+        trait_results += test_linear_model(X, y, cv=cv, alphas= [1.5**x for x in range(-15,20)], n_jobs=-1, pca_variance=pc_var, name_of_feature_representations='PCA_SNPS',
+                                            ridge_lasso_enet=[False, False, True])
 
         trait_results += [Result_10fold(LinearRegression(), X, y, important_parameters={'variance_maintained': pc_var}, name='OLS')]
-        #trait_results += Measure
+
 
         make_results_to_csv(trait_results, RESULTS_DIR, '', trait, 'linear_OLS')
         trait_results[-1].get_indidual_predictions().to_csv(f"{INDIVIDUAL}/{trait}_linear_{'PCA_SNPS'}_individual_pca{(str(pc_var))}_OLS.csv")

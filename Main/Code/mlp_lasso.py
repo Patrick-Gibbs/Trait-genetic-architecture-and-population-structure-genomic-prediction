@@ -1,3 +1,7 @@
+"""
+Tests the MLP model using l1 penlaisation/lasso to pre-select features
+"""
+
 import torch
 from sklearn.metrics import r2_score
 from Main.HelperClasses.GetAraData import *
@@ -18,12 +22,16 @@ with open(f'{RESULTS_PATH}/features.csv', 'w') as f:
     pass
 
 file_addon = ''
+# the following code tests the MLP model for each trait
 for trait in list(pd.read_csv('Main/results/traits_used.csv')['name']):
+    
+    # gets snp matrix and phenotype
     print(trait)
     y = getAraData.get_normalised_phenotype(trait)
     X = getAraData.get_genotype(trait)
-
     cv = my_Kfold()
+
+    # MLP setup 
     set_up = {'hidden': [1,2,3], 'lr': [0.0015], 'weight_decay': [0, 0.01, 0.1], 
                     'memory': [10], 'tol': [0.05, 0.01, 0.005], 'drop_out':[0, 0.1], 'epoch': [250], 'brach_size': [100], 'hidden_layer_size': [2/3]}
 
@@ -37,16 +45,20 @@ for trait in list(pd.read_csv('Main/results/traits_used.csv')['name']):
         set_up = {'hidden': [3],'lr': [0.0015], 'weight_decay': [0], 
                         'memory': [10], 'tol': [0.05], 'drop_out':[0, 0.1], 'epoch': [175], 'brach_size': [100], 'hidden_layer_size': [2/3]}
 
+    # for GPU acceleration
     def to_cuda(X):
         if type(X) == np.ndarray:
             return torch.from_numpy(X).float().to('cpu')
         else:
             return X
 
+    # MLP class
     class MLP_Grid_search:
         def __init__(self, device='cpu', ) -> None:
             self.device = device
 
+
+        # trains the MLP
         def train(self, X_train, Y_train, device='cpu', epoch=800, brach_size=200, drop_out=0.1, lr=0.001, weight_decay=0.1, memory=10, tol=4, hidden_layer_size=1, hidden=5, feature_selection_alpha=None, features = None):
                 X_train = X_train[:, self.features]
                 
@@ -99,14 +111,16 @@ for trait in list(pd.read_csv('Main/results/traits_used.csv')['name']):
             
                 self.model = model
 
+        # makes predictions
         def predict(self, X):
             X = X[:, self.features]
             if type(X) == np.ndarray:
                 X = torch.from_numpy(X).float().to(self.device)
             return self.model.forward(X).flatten()
 
+
+        # used for fitting the MLP with grid search
         def grid_search(self, params: dict, X, Y, cv=KFold(n_splits=5, random_state=42, shuffle=True)):
-            # make grid search
             param_tups = list(product(*params.values()))
             param_names = list(params.keys())
             parameterisations_mlp = ([{k:v for k,v in zip(param_names, param_tup)} for param_tup in param_tups])
@@ -153,6 +167,8 @@ for trait in list(pd.read_csv('Main/results/traits_used.csv')['name']):
 
             self.train(X, Y,device='cpu', **parameterisations[best])
 
+
+    # tests the MLP performance given snps and a phenotype, and a CV object
     def test(params, X, Y, cv):
         print('test')
         metrics = {'r2s': [], 'RMSEs':[]}

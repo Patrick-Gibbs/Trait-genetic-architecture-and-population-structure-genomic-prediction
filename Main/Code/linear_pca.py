@@ -1,3 +1,8 @@
+"""
+Fits linear regression to the principal components of the markers across 3 traits for figure 3.
+Slightly denser set of points comparted to linear_pca_sup.py, to make the figure look better.
+"""
+
 from Main.HelperClasses.GetAraData import *
 from Main.HelperClasses.MeasurePerformance import *
 from sklearn.linear_model import RidgeCV, LinearRegression

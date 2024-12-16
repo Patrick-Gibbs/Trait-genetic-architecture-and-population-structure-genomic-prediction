@@ -1,3 +1,8 @@
+"""
+Generates results across each model using PCs describing 0.3 of marker variance (code orginally used before first submission), now superseaded by linear_pca.py / rf_pca.py
+"""
+
+
 from Main.HelperClasses.GetAraData import *
 from Main.HelperClasses.MeasurePerformance import *
 from sklearn.ensemble import RandomForestRegressor
