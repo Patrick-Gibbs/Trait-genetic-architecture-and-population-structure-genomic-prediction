@@ -1,6 +1,6 @@
 """
 This script fits linear models and Random Forest to SNP
-for each trait in the dataset.
+for each trait in the datase. tests the sensitivity to number of trees in the RF model, and is used to generate Figure S2. 
 """
 
 from sklearn.ensemble import RandomForestRegressor

@@ -1,3 +1,8 @@
+"""
+Fits random forest model across PCs for all traits in the study
+"""
+
+
 from Main.HelperClasses.GetAraData import *
 from Main.HelperClasses.MeasurePerformance import *
 from sklearn.ensemble import RandomForestRegressor
