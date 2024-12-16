@@ -73,7 +73,7 @@ The following code was written for additional analysis in response the first rou
 
     - `rerun_more_filtering`: fits models using different LD-based filtering variables as discussed in section 2.4.
 
-    - `broad_sense_h.sh`: contains shell script to generate genome simularity matrix for narrow sense heritability using REML with the LDAK package.
+    - `narrow_sense_h.sh`: contains shell script to generate genome simularity matrix for narrow sense heritability using REML with the LDAK package.
 
 
 ## References
